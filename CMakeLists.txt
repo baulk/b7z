@@ -78,4 +78,4 @@ else()
 endif()
 
 add_definitions(-D_UNICODE -DUNICODE)
-
+set(BAULK7Z_DIR ${CMAKE_CURRENT_SOURCE_DIR})
