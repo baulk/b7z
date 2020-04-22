@@ -1,8 +1,8 @@
 #define USE_COPYRIGHT_CR
 #include "7zVersion.rc"
 
-MY_VERSION_INFO_APP("Baulk7z Console" , "baulk7z")
+MY_VERSION_INFO_APP("Baulk7z Standalone Console" , "baulk7z")
 
 #ifndef UNDER_CE
-1  24  MOVEABLE PURE   "baulk7z.manifest"
+2  24  MOVEABLE PURE   "baulk7z.manifest"
 #endif

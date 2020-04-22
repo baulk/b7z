@@ -6,7 +6,7 @@
 *.pch
 *.exp
 *.lib
-
+/build/
 # fast-lzma2 dir junction
 C/fast-lzma2/.gitattributes
 C/fast-lzma2/.gitignore
