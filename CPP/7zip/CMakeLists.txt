@@ -65,15 +65,6 @@ set(B7Z_SOURCES_UI_COMMON
     UI/Common/UpdatePair.obj
     UI/Common/UpdateProduce.obj)
 
-set(B7Z_SOURCES_OTHERS
-    Archive/Common/OutStreamWithCRC.cpp
-    Compress/CopyCoder.cpp
-    "${BAULK7Z_DIR}/C/Alloc.obj"
-    "${BAULK7Z_DIR}/C/CpuArch.obj"
-    "${BAULK7Z_DIR}/C/Sort.obj"
-    "${BAULK7Z_DIR}/C/Threads.obj"
-    "${BAULK7Z_DIR}/C/DllSecur.obj")
-
 set(B7Z_SOURCES_CONSOLE
     UI/Console/BenchCon.obj
     UI/Console/ConsoleClose.obj
@@ -87,19 +78,42 @@ set(B7Z_SOURCES_CONSOLE
     UI/Console/UpdateCallbackConsole.obj
     UI/Console/UserInputUtils.obj)
 
-set(B7Z_SOURCES_CRC)
+set(B7Z_SOURCES_OPT)
 if("${CMAKE_C_COMPILER_ARCHITECTURE_ID}" STREQUAL "x86_64"
    OR "${CMAKE_C_COMPILER_ARCHITECTURE_ID}" STREQUAL "AMD64"
-   OR "${CMAKE_C_COMPILER_ARCHITECTURE_ID}" STREQUAL "x64"
-   OR "${CMAKE_C_COMPILER_ARCHITECTURE_ID}" STREQUAL "x86")
-  set(B7Z_SOURCES_CRC ${BAULK7Z_DIR}/Asm/x86/7zCrcOpt.asm)
+   OR "${CMAKE_C_COMPILER_ARCHITECTURE_ID}" STREQUAL "x64")
+  set(B7Z_SOURCES_OPT ${BAULK7Z_DIR}/Asm/x86/7zCrcOpt.asm ${BAULK7Z_DIR}/Asm/x86/AesOpt.asm
+                      ${BAULK7Z_DIR}/Asm/x86/LzmaDecOpt.asm ${BAULK7Z_DIR}/Asm/x86/XzCrc64Opt.asm)
+  add_compile_options("-D_LZMA_DEC_OPT")
+elseif("${CMAKE_C_COMPILER_ARCHITECTURE_ID}" STREQUAL "x86")
+  set(B7Z_SOURCES_OPT ${BAULK7Z_DIR}/Asm/x86/7zCrcOpt.asm ${BAULK7Z_DIR}/Asm/x86/AesOpt.asm
+                      ${BAULK7Z_DIR}/Asm/x86/XzCrc64Opt.asm)
 elseif("${CMAKE_C_COMPILER_ARCHITECTURE_ID}" STREQUAL "arm" or "${CMAKE_C_COMPILER_ARCHITECTURE_ID}" STREQUAL "arm64")
-  set(B7Z_SOURCES_CRC ${BAULK7Z_DIR}/Asm/arm/7zCrcOpt.asm)
+  set(B7Z_SOURCES_OPT ${BAULK7Z_DIR}/Asm/arm/7zCrcOpt.asm ${BAULK7Z_DIR}/C/Aes.c ${BAULK7Z_DIR}/C/XzCrc64.c)
 else()
-  set(B7Z_SOURCES_CRC ${BAULK7Z_DIR}/C/7zCrcOpt.c)
+  set(B7Z_SOURCES_OPT ${BAULK7Z_DIR}/C/7zCrcOpt.c ${BAULK7Z_DIR}/C/Aes.c ${BAULK7Z_DIR}/C/XzCrc64.c)
 endif()
 
-file(GLOB B7Z_SOURCES_AR Archive/*.cpp)
+set(B7Z_SOURCES_AR_COMMON
+    Archive/Common/CoderMixer2.obj
+    Archive/Common/DummyOutStream.obj
+    Archive/Common/FindSignature.obj
+    Archive/Common/HandlerOut.obj
+    Archive/Common/InStreamWithCRC.obj
+    Archive/Common/ItemNameUtils.obj
+    Archive/Common/MultiStream.obj
+    Archive/Common/OutStreamWithCRC.obj
+    Archive/Common/ParseProperties.obj)
+
+set(B7Z_SOURCES_AR
+    Archive/Bz2Handler.obj
+    Archive/DeflateProps.obj
+    Archive/GzHandler.obj
+    Archive/LzHandler.obj
+    Archive/LzmaHandler.obj
+    Archive/SplitHandler.obj
+    Archive/XzHandler.obj)
+
 file(GLOB B7Z_SOURCES_AR_7Z Archive/7z/*.cpp)
 file(GLOB B7Z_SOURCES_AR_CAB Archive/Cab/*.cpp)
 file(GLOB B7Z_SOURCES_AR_CHM Archive/Chm/*.cpp)
@@ -110,8 +124,99 @@ file(GLOB B7Z_SOURCES_AR_TAR Archive/Tar/*.cpp)
 file(GLOB B7Z_SOURCES_AR_UDF Archive/Udf/*.cpp)
 file(GLOB B7Z_SOURCES_AR_WIM Archive/Wim/*.cpp)
 file(GLOB B7Z_SOURCES_AR_ZIP Archive/Zip/*.cpp)
-file(GLOB B7Z_SOURCES_COMPRESS Compress/*.cpp)
+
+set(B7Z_SOURCES_COMPRESS
+    Compress/Bcj2Coder.obj
+    Compress/Bcj2Register.obj
+    Compress/BcjCoder.obj
+    Compress/BcjRegister.obj
+    Compress/BitlDecoder.obj
+    Compress/BranchMisc.obj
+    Compress/BranchRegister.obj
+    Compress/ByteSwap.obj
+    Compress/BZip2CRC.obj
+    Compress/BZip2Decoder.obj
+    Compress/BZip2Encoder.obj
+    Compress/BZip2Register.obj
+    Compress/CopyCoder.obj
+    Compress/CopyRegister.obj
+    Compress/Deflate64Register.obj
+    Compress/DeflateDecoder.obj
+    Compress/DeflateEncoder.obj
+    Compress/DeflateRegister.obj
+    Compress/DeltaFilter.obj
+    Compress/ImplodeDecoder.obj
+    Compress/Lzma2Decoder.obj
+    Compress/Lzma2Encoder.obj
+    Compress/Lzma2Register.obj
+    Compress/LzmaDecoder.obj
+    Compress/LzmaEncoder.obj
+    Compress/LzmaRegister.obj
+    Compress/LzOutWindow.obj
+    Compress/LzxDecoder.obj
+    Compress/PpmdDecoder.obj
+    Compress/PpmdEncoder.obj
+    Compress/PpmdRegister.obj
+    Compress/PpmdZip.obj
+    Compress/QuantumDecoder.obj
+    Compress/ShrinkDecoder.obj
+    Compress/XzDecoder.obj
+    Compress/XzEncoder.obj
+    Compress/BrotliDecoder.obj
+    Compress/BrotliEncoder.obj
+    Compress/BrotliRegister.obj
+    Compress/Lz4Decoder.obj
+    Compress/Lz4Encoder.obj
+    Compress/Lz4Register.obj
+    Compress/LizardDecoder.obj
+    Compress/LizardEncoder.obj
+    Compress/LizardRegister.obj
+    Compress/Lz5Decoder.obj
+    Compress/Lz5Encoder.obj
+    Compress/Lz5Register.obj
+    Compress/ZstdDecoder.obj
+    Compress/ZstdEncoder.obj
+    Compress/ZstdRegister.obj
+    Compress/FastLzma2Register.obj)
+
 file(GLOB B7Z_SOURCES_CRYPTO Crypto/*.cpp)
+
+set(B7Z_SOURCES_C_FILES
+    ${BAULK7Z_DIR}/C/7zStream.obj
+    ${BAULK7Z_DIR}/C/Alloc.obj
+    ${BAULK7Z_DIR}/C/Bcj2.obj
+    ${BAULK7Z_DIR}/C/Bcj2Enc.obj
+    ${BAULK7Z_DIR}/C/Bra.obj
+    ${BAULK7Z_DIR}/C/Bra86.obj
+    ${BAULK7Z_DIR}/C/BraIA64.obj
+    ${BAULK7Z_DIR}/C/BwtSort.obj
+    ${BAULK7Z_DIR}/C/CpuArch.obj
+    ${BAULK7Z_DIR}/C/Delta.obj
+    ${BAULK7Z_DIR}/C/HuffEnc.obj
+    ${BAULK7Z_DIR}/C/LzFind.obj
+    ${BAULK7Z_DIR}/C/LzFindMt.obj
+    ${BAULK7Z_DIR}/C/Lzma2Dec.obj
+    ${BAULK7Z_DIR}/C/Lzma2DecMt.obj
+    ${BAULK7Z_DIR}/C/Lzma2Enc.obj
+    ${BAULK7Z_DIR}/C/LzmaDec.obj
+    ${BAULK7Z_DIR}/C/LzmaEnc.obj
+    ${BAULK7Z_DIR}/C/MtCoder.obj
+    ${BAULK7Z_DIR}/C/MtDec.obj
+    ${BAULK7Z_DIR}/C/Ppmd7.obj
+    ${BAULK7Z_DIR}/C/Ppmd7Dec.obj
+    ${BAULK7Z_DIR}/C/Ppmd7Enc.obj
+    ${BAULK7Z_DIR}/C/Ppmd8.obj
+    ${BAULK7Z_DIR}/C/Ppmd8Dec.obj
+    ${BAULK7Z_DIR}/C/Ppmd8Enc.obj
+    ${BAULK7Z_DIR}/C/Sha1.obj
+    ${BAULK7Z_DIR}/C/Sha256.obj
+    ${BAULK7Z_DIR}/C/Sort.obj
+    ${BAULK7Z_DIR}/C/Threads.obj
+    ${BAULK7Z_DIR}/C/Xz.obj
+    ${BAULK7Z_DIR}/C/XzDec.obj
+    ${BAULK7Z_DIR}/C/XzEnc.obj
+    ${BAULK7Z_DIR}/C/XzIn.obj)
+
 # C sources
 file(GLOB B7Z_SOURCES_BROTLI ${BAULK7Z_DIR}/C/brotli/*.c)
 file(GLOB B7Z_SOURCES_LIZARD ${BAULK7Z_DIR}/C/lizard/*.c)
@@ -140,8 +245,9 @@ add_executable(
   ${B7Z_SOURCES_WINDOWS}
   ${B7Z_SOURCES_7Z_COMMON}
   ${B7Z_SOURCES_UI_COMMON}
-  ${B7Z_SOURCES_CRC}
-  ${B7Z_SOURCES_OTHERS}
+  ${B7Z_SOURCES_OPT}
+  ${B7Z_SOURCES_C_FILES}
+  ${B7Z_SOURCES_AR_COMMON}
   ${B7Z_SOURCES_AR_7Z}
   ${B7Z_SOURCES_AR_CAB}
   ${B7Z_SOURCES_AR_CHM}
@@ -176,7 +282,6 @@ set(BAULK7Z_DEF)
 list(APPEND BAULK7Z_DEF -DWIN_LONG_PATH)
 list(APPEND BAULK7Z_DEF -D_7ZIP_LARGE_PAGES)
 list(APPEND BAULK7Z_DEF -DSUPPORT_DEVICE_FILE)
-list(APPEND BAULK7Z_DEF -DEXTERNAL_CODECS)
 target_compile_definitions(baulk7z PRIVATE ${BAULK7Z_DEF} -D_CONSOLE)
 
 set(B7ZG_SOURCES_GUI
@@ -267,8 +372,9 @@ add_executable(
   ${B7ZG_SOURCES_7Z_UI_COMMON}
   ${BZ7G_SOURCES_FM}
   UI/Explorer/MyMessages.cpp
-  ${B7Z_SOURCES_CRC}
-  ${B7Z_SOURCES_OTHERS}
+  ${B7Z_SOURCES_OPT}
+  ${B7Z_SOURCES_C_FILES}
+  ${B7Z_SOURCES_AR_COMMON}
   ${B7Z_SOURCES_AR_7Z}
   ${B7Z_SOURCES_AR_CAB}
   ${B7Z_SOURCES_AR_CHM}
