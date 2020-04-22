@@ -298,3 +298,6 @@ target_link_libraries(
   advapi32.lib
   shell32.lib)
 target_compile_definitions(baulk7zG PRIVATE ${BAULK7Z_DEF})
+
+install(TARGETS baulk7z DESTINATION ".")
+install(TARGETS baulk7zG DESTINATION ".")

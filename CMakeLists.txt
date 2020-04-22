@@ -87,3 +87,4 @@ else()
 endif()
 
 set(BAULK7Z_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+add_subdirectory(CPP)
