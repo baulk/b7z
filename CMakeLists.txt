@@ -55,6 +55,15 @@ if(MSVC)
   add_compile_options("-Zc:__cplusplus")
   add_compile_options("-DUNICODE=1")
   add_compile_options("-D_UNICODE=1")
+  add_compile_options("-WX")
+  add_compile_options("-W4")
+  add_compile_options("-MP")
+  add_compile_options("-GL")
+  add_compile_options("-Gw")
+  add_compile_options("-Ob3")
+
+  add_link_options("-LTCG")
+  add_link_options("-LARGEADDRESSAWARE")
   set(CMAKE_RC_FLAGS "${CMAKE_RC_FLAGS} -c65001")
   set(WIN_COMPILER_FLAGS
       CMAKE_CXX_FLAGS
@@ -77,5 +86,4 @@ else()
   endif()
 endif()
 
-add_definitions(-D_UNICODE -DUNICODE)
 set(BAULK7Z_DIR ${CMAKE_CURRENT_SOURCE_DIR})
