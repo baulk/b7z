@@ -12,6 +12,8 @@ set(B7Z_SOURCES_BASE_COMMON
     ../Common/StringToInt.cpp
     ../Common/UTFConvert.cpp
     ../Common/MyVector.cpp
+    ../Common/MyXml.cpp
+    ../Common/MyMap.cpp
     ../Common/Wildcard.cpp)
 
 set(B7Z_SOURCES_WINDOWS
@@ -110,6 +112,7 @@ set(B7Z_SOURCES_AR_COMMON
     Archive/Common/ItemNameUtils.cpp
     Archive/Common/MultiStream.cpp
     Archive/Common/OutStreamWithCRC.cpp
+    Archive/Common/OutStreamWithSha1.cpp
     Archive/Common/ParseProperties.cpp)
 
 set(B7Z_SOURCES_AR
@@ -119,17 +122,18 @@ set(B7Z_SOURCES_AR
     Archive/LzHandler.cpp
     Archive/LzmaHandler.cpp
     Archive/SplitHandler.cpp
-    Archive/XzHandler.cpp)
+    Archive/XzHandler.cpp
+    Archive/HandlerCont.cpp)
 
 file(GLOB B7Z_SOURCES_AR_7Z Archive/7z/*.cpp)
 file(GLOB B7Z_SOURCES_AR_CAB Archive/Cab/*.cpp)
-#file(GLOB B7Z_SOURCES_AR_CHM Archive/Chm/*.cpp)
-#file(GLOB B7Z_SOURCES_AR_ISO Archive/Iso/*.cpp)
-#file(GLOB B7Z_SOURCES_AR_NSIS Archive/Nsis/*.cpp)
-#file(GLOB B7Z_SOURCES_AR_RAR Archive/Rar/*.cpp)
+file(GLOB B7Z_SOURCES_AR_CHM Archive/Chm/*.cpp)
+file(GLOB B7Z_SOURCES_AR_ISO Archive/Iso/*.cpp)
+file(GLOB B7Z_SOURCES_AR_NSIS Archive/Nsis/*.cpp)
+file(GLOB B7Z_SOURCES_AR_RAR Archive/Rar/*.cpp)
 file(GLOB B7Z_SOURCES_AR_TAR Archive/Tar/*.cpp)
-#file(GLOB B7Z_SOURCES_AR_UDF Archive/Udf/*.cpp)
-#file(GLOB B7Z_SOURCES_AR_WIM Archive/Wim/*.cpp)
+file(GLOB B7Z_SOURCES_AR_UDF Archive/Udf/*.cpp)
+file(GLOB B7Z_SOURCES_AR_WIM Archive/Wim/*.cpp)
 file(GLOB B7Z_SOURCES_AR_ZIP Archive/Zip/*.cpp)
 
 set(B7Z_SOURCES_COMPRESS
@@ -141,7 +145,7 @@ set(B7Z_SOURCES_COMPRESS
     Compress/BranchMisc.cpp
     Compress/BranchRegister.cpp
     Compress/ByteSwap.cpp
-    Compress/BZip2CRC.cpp
+    Compress/BZip2Crc.cpp
     Compress/BZip2Decoder.cpp
     Compress/BZip2Encoder.cpp
     Compress/BZip2Register.cpp
@@ -153,12 +157,15 @@ set(B7Z_SOURCES_COMPRESS
     Compress/DeflateRegister.cpp
     Compress/DeltaFilter.cpp
     Compress/ImplodeDecoder.cpp
+    Compress/LzfseDecoder.cpp
+    Compress/LzhDecoder.cpp
     Compress/Lzma2Decoder.cpp
     Compress/Lzma2Encoder.cpp
     Compress/Lzma2Register.cpp
     Compress/LzmaDecoder.cpp
     Compress/LzmaEncoder.cpp
     Compress/LzmaRegister.cpp
+    Compress/LzmsDecoder.cpp
     Compress/LzOutWindow.cpp
     Compress/LzxDecoder.cpp
     Compress/PpmdDecoder.cpp
@@ -166,9 +173,19 @@ set(B7Z_SOURCES_COMPRESS
     Compress/PpmdRegister.cpp
     Compress/PpmdZip.cpp
     Compress/QuantumDecoder.cpp
+    Compress/Rar1Decoder.cpp
+    Compress/Rar2Decoder.cpp
+    Compress/Rar3Decoder.cpp
+    Compress/Rar3Vm.cpp
+    Compress/Rar5Decoder.cpp
+    Compress/RarCodecsRegister.cpp
     Compress/ShrinkDecoder.cpp
+    Compress/XpressDecoder.cpp
     Compress/XzDecoder.cpp
-    Compress/XzEncoder.cpp)
+    Compress/XzEncoder.cpp
+    Compress/ZlibDecoder.cpp
+    Compress/ZlibEncoder.cpp
+    Compress/ZDecoder.cpp)
 
 file(GLOB B7Z_SOURCES_CRYPTO Crypto/*.cpp)
 
@@ -177,6 +194,7 @@ set(B7Z_SOURCES_C_FILES
     ${BAULK7Z_DIR}/C/Alloc.c
     ${BAULK7Z_DIR}/C/Bcj2.c
     ${BAULK7Z_DIR}/C/Bcj2Enc.c
+    ${BAULK7Z_DIR}/C/Blake2s.c
     ${BAULK7Z_DIR}/C/Bra.c
     ${BAULK7Z_DIR}/C/Bra86.c
     ${BAULK7Z_DIR}/C/BraIA64.c
@@ -239,6 +257,7 @@ add_executable(
   ${B7Z_SOURCES_UI_COMMON}
   ${B7Z_SOURCES_OPT}
   ${B7Z_SOURCES_C_FILES}
+  ${B7Z_SOURCES_AR}
   ${B7Z_SOURCES_AR_COMMON}
   ${B7Z_SOURCES_AR_7Z}
   ${B7Z_SOURCES_AR_CAB}
