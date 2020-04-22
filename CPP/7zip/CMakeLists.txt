@@ -121,6 +121,9 @@ file(GLOB B7Z_SOURCES_ZSTD ${BAULK7Z_DIR}/C/zstd/*.c)
 file(GLOB B7Z_SOURCES_FAST_LZMA2 ${BAULK7Z_DIR}/C/fast-lzma2/*.c)
 file(GLOB B7Z_SOURCES_ZSTDMT ${BAULK7Z_DIR}/C/zstdmt/*.c)
 
+# add flags to compile fast-lzma2
+set_source_files_properties(${B7Z_SOURCES_FAST_LZMA2} PROPERTIES COMPILE_FLAGS "-DNO_XXHASH -DFL2_7ZIP_BUILD")
+
 add_library(zstdmt STATIC ${B7Z_SOURCES_ZSTDMT})
 target_include_directories(
   zstdmt
@@ -173,7 +176,6 @@ list(APPEND BAULK7Z_DEF -DWIN_LONG_PATH)
 list(APPEND BAULK7Z_DEF -D_7ZIP_LARGE_PAGES)
 list(APPEND BAULK7Z_DEF -DSUPPORT_DEVICE_FILE)
 list(APPEND BAULK7Z_DEF -DEXTERNAL_CODECS)
-
 target_compile_definitions(baulk7z PRIVATE ${BAULK7Z_DEF} -D_CONSOLE)
 
 set(B7ZG_SOURCES_GUI
