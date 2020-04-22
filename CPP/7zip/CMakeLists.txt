@@ -140,6 +140,7 @@ add_executable(
   ${B7Z_SOURCES_WINDOWS}
   ${B7Z_SOURCES_7Z_COMMON}
   ${B7Z_SOURCES_UI_COMMON}
+  ${B7Z_SOURCES_CRC}
   ${B7Z_SOURCES_OTHERS}
   ${B7Z_SOURCES_AR_7Z}
   ${B7Z_SOURCES_AR_CAB}
@@ -266,6 +267,7 @@ add_executable(
   ${B7ZG_SOURCES_7Z_UI_COMMON}
   ${BZ7G_SOURCES_FM}
   UI/Explorer/MyMessages.cpp
+  ${B7Z_SOURCES_CRC}
   ${B7Z_SOURCES_OTHERS}
   ${B7Z_SOURCES_AR_7Z}
   ${B7Z_SOURCES_AR_CAB}
@@ -296,7 +298,13 @@ target_link_libraries(
   ole32.lib
   user32.lib
   advapi32.lib
-  shell32.lib)
+  shell32.lib
+  comctl32.lib
+  htmlhelp.lib
+  comdlg32.lib
+  gdi32.lib)
+
+target_compile_definitions(baulk7zG PRIVATE ${BAULK7Z_DEF})
 target_compile_definitions(baulk7zG PRIVATE ${BAULK7Z_DEF})
 
 install(TARGETS baulk7z DESTINATION ".")
