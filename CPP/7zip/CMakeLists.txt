@@ -98,8 +98,7 @@ set(B7Z_SOURCES_OPT
     ${BAULK7Z_DIR}/C/7zCrc.c
     ${BAULK7Z_DIR}/C/7zCrcOpt.c
     ${BAULK7Z_DIR}/C/XzCrc64.c
-    ${BAULK7Z_DIR}/C/XzCrc64Opt.c
-)
+    ${BAULK7Z_DIR}/C/XzCrc64Opt.c)
 
 message(STATUS "detect ${B7Z_SOURCES_OPT}")
 
@@ -295,4 +294,3 @@ list(APPEND BAULK7Z_DEF -D_7ZIP_LARGE_PAGES)
 list(APPEND BAULK7Z_DEF -DSUPPORT_DEVICE_FILE)
 list(APPEND BAULK7Z_DEF -DZSTD_MULTITHREAD)
 target_compile_definitions(baulk7z PRIVATE ${BAULK7Z_DEF} -D_CONSOLE)
-
