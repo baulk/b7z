@@ -290,6 +290,10 @@ target_link_libraries(
   advapi32.lib
   shell32.lib)
 
+if(BAULK7Z_ENABLE_LTO)
+  set_property(TARGET baulk7z PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+endif()
+
 set(BAULK7Z_DEF)
 list(APPEND BAULK7Z_DEF -DWIN_LONG_PATH)
 list(APPEND BAULK7Z_DEF -D_7ZIP_LARGE_PAGES)
