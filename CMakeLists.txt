@@ -16,6 +16,38 @@ endif()
 
 option(ENABLE_BAULK7Z_GUI "Enable baulk7z GUI" OFF)
 
+if(MSVC)
+  set(CMAKE_MSVC_RUNTIME_LIBRARY_DEFAULT "")
+  # FIXME: This block should go away after a transition period.
+  if(NOT CMAKE_VERSION VERSION_LESS 3.15)
+    # Filter out MSVC runtime library flags that may have come from the cache of an existing build tree or from scripts.
+    foreach(l C CXX)
+      foreach(c DEBUG MINSIZEREL RELEASE RELWITHDEBINFO)
+        string(REGEX REPLACE "[-/]M[DT]d?( |$)" "" "CMAKE_${l}_FLAGS_${c}" "${CMAKE_${l}_FLAGS_${c}}")
+      endforeach()
+    endforeach()
+  endif()
+  # http://stackoverflow.com/a/32128977/486990
+  add_compile_options(
+    "$<$<CONFIG:Debug>:/MTd>" # -MTd
+    "$<$<CONFIG:RelWithDebInfo>:/MT>" # -MT
+    "$<$<CONFIG:Release>:/MT>" # * MT
+    "$<$<CONFIG:MinSizeRel>:/MT>")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -utf-8 -W3 -MP -GL -Gw -DUNICODE=1 -D_UNICODE=1 -permissive- -Zc:__cplusplus")
+  set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS}  -utf-8 -W3 -MP -GL -Gw -DUNICODE=1 -D_UNICODE=1")
+  set(CMAKE_RC_FLAGS "${CMAKE_RC_FLAGS} -c65001")
+else()
+  add_compile_options("-g")
+  add_compile_options("-Wall")
+  add_compile_options("-Wextra")
+  if(USE_SANITIZE)
+    add_compile_options("-fsanitize=address")
+    add_compile_options("-fno-omit-frame-pointer")
+    set(CMAKE_EXE_LINKER_FLAGS "-fsanitize=address ")
+  endif()
+endif()
+
+
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
@@ -46,46 +78,6 @@ if(lto_supported)
   if(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(BAULK_ENABLE_LTO ON)
     message(STATUS "IPO/LTO enabled")
-  endif()
-endif()
-
-if(MSVC)
-
-if(CMAKE_C_COMPILER_ARCHITECTURE_ID STREQUAL "x64")
-    set(CMAKE_ASM_COMPILER ml64)
-    set(CMAKE_ASM_FLAGS "-Dx64")
-elseif(CMAKE_C_COMPILER_ARCHITECTURE_ID STREQUAL "arm")
-    set(CMAKE_ASM_COMPILER armasm)
-elseif(CMAKE_C_COMPILER_ARCHITECTURE_ID STREQUAL "arm64")
-    set(CMAKE_ASM_COMPILER armasm64)
-else()
-    set(CMAKE_ASM_COMPILER ml)
-endif()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -utf-8 -W3 -MP -GL -Gw -DUNICODE=1 -D_UNICODE=1 -permissive- -Zc:__cplusplus")
-  set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS}  -utf-8 -W3 -MP -GL -Gw -DUNICODE=1 -D_UNICODE=1")
-  #add_compile_options("-Ob3")
-
-  add_link_options("-LTCG")
-  add_link_options("-LARGEADDRESSAWARE")
-  set(CMAKE_RC_FLAGS "${CMAKE_RC_FLAGS} -c65001")
-  set(WIN_COMPILER_FLAGS
-      CMAKE_CXX_FLAGS
-      CMAKE_CXX_FLAGS_DEBUG
-      CMAKE_CXX_FLAGS_RELEASE
-      CMAKE_C_FLAGS
-      CMAKE_C_FLAGS_DEBUG
-      CMAKE_C_FLAGS_RELEASE)
-  foreach(WIN_COMPILER_FLAG ${WIN_COMPILER_FLAGS})
-    string(REPLACE "/MD" "/MT" ${WIN_COMPILER_FLAG} "${${WIN_COMPILER_FLAG}}")
-  endforeach()
-else()
-  add_compile_options("-g")
-  add_compile_options("-Wall")
-  add_compile_options("-Wextra")
-  if(USE_SANITIZE)
-    add_compile_options("-fsanitize=address")
-    add_compile_options("-fno-omit-frame-pointer")
-    set(CMAKE_EXE_LINKER_FLAGS "-fsanitize=address ")
   endif()
 endif()
 
