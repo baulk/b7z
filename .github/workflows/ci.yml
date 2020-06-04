@@ -6,13 +6,11 @@ on:
       # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
       - "docs/**"
       - '**.md'
-      - '**.txt'
       - 'LICENSE'
   pull_request:
     paths-ignore:
       - "docs/**"
       - '**.md'
-      - '**.txt'
       - 'LICENSE'
 jobs:
   build:
