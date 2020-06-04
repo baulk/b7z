@@ -1,7 +1,5 @@
 // (C) 2016 - 2020 Tino Reichardt
 
-#define DEBUG 0
-
 #if 0
 #include <stdio.h>
 #endif
@@ -114,12 +112,17 @@ STDMETHODIMP CEncoder::SetCoderProperties(const PROPID * propIDs, const PROPVARI
         /* like --long in zstd cli program */
         _Long = 1;
         if (v == 0) {
-          // m0=zstd:long:tlen=x
+          // m0=zstd:long:tlen=x -> long=default
           _WindowLog = 27;
-        } else if (v < 10) {
-          _WindowLog = 10;
+        } else if (v < ZSTD_WINDOWLOG_MIN) {
+          // m0=zstd:long=9 -> long=10
+          _WindowLog = ZSTD_WINDOWLOG_MIN;
         } else if (v > ZSTD_WINDOWLOG_MAX) {
+          // m0=zstd:long=33 -> long=max
           _WindowLog = ZSTD_WINDOWLOG_MAX;
+        } else {
+          // m0=zstd:long=15 -> long=value
+          _WindowLog = v;
         }
         break;
       }
@@ -366,7 +369,7 @@ STDMETHODIMP CEncoder::Code(ISequentialInStream *inStream,
         }
       }
 
-#if DEBUG
+#if 0
       printf("err=%u ", (unsigned)err);
       printf("srcSize=%u ", (unsigned)srcSize);
       printf("todo=%u\n", ZSTD_todo);
@@ -374,6 +377,8 @@ STDMETHODIMP CEncoder::Code(ISequentialInStream *inStream,
       printf("inBuff.pos=%u\n", (unsigned)inBuff.pos);
       printf("outBuff.size=%u ", (unsigned)outBuff.size);
       printf("outBuff.pos=%u\n\n", (unsigned)outBuff.pos);
+      printf("_processedIn=%u ", (unsigned)_processedIn);
+      printf("_processedOut=%u\n", (unsigned)_processedOut);
       fflush(stdout);
 #endif
 
@@ -381,8 +386,10 @@ STDMETHODIMP CEncoder::Code(ISequentialInStream *inStream,
       if (outBuff.pos) {
         RINOK(WriteStream(outStream, _dstBuf, outBuff.pos));
         _processedOut += outBuff.pos;
-        RINOK(progress->SetRatioInfo(&_processedIn, &_processedOut));
       }
+
+      if (progress)
+        RINOK(progress->SetRatioInfo(&_processedIn, &_processedOut));
 
       /* done */
       if (ZSTD_todo == ZSTD_e_end && err == 0)
