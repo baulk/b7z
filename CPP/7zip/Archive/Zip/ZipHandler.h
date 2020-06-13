@@ -74,7 +74,7 @@ private:
     m_WriteNtfsTimeExtra = true;
     _removeSfxBlock = false;
     m_ForceLocal = false;
-    m_ForceUtf8 = false;
+    m_ForceUtf8 = true;
     _forceCodePage = false;
     _specifiedCodePage = CP_OEMCP;
   }
