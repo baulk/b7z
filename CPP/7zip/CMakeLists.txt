@@ -122,6 +122,7 @@ set(B7Z_SOURCES_AR
     Archive/LzmaHandler.cpp
     Archive/SplitHandler.cpp
     Archive/XzHandler.cpp
+    Archive/ZstdHandler.cpp
     Archive/HandlerCont.cpp)
 
 file(GLOB B7Z_SOURCES_AR_7Z Archive/7z/*.cpp)
@@ -184,7 +185,10 @@ set(B7Z_SOURCES_COMPRESS
     Compress/XzEncoder.cpp
     Compress/ZlibDecoder.cpp
     Compress/ZlibEncoder.cpp
-    Compress/ZDecoder.cpp)
+    Compress/ZDecoder.cpp
+    Compress/ZstdDecoder.cpp
+    Compress/ZstdEncoder.cpp
+    Compress/ZstdRegister.cpp)
 
 file(GLOB B7Z_SOURCES_CRYPTO Crypto/*.cpp)
 
