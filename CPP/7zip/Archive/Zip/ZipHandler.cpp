@@ -90,7 +90,6 @@ const char * const kMethodNames2[kNumMethodNames2] =
     "zstd"
   , NULL
   , "xz"
-    "xz"
   , "Jpeg"
   , "WavPack"
   , "PPMd"
@@ -775,7 +774,6 @@ HRESULT CZstdDecoder::Code(ISequentialInStream *inStream, ISequentialOutStream *
 {
   return Decoder->Code(inStream, outStream, NULL, outSize, progress);
 }
-
 
 
 class CLzmaDecoder:

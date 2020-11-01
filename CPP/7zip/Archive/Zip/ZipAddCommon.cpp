@@ -358,6 +358,12 @@ HRESULT CAddCommon::Compress(
             _lzmaEncoder = new CLzmaEncoder();
             _compressEncoder = _lzmaEncoder;
           }
+          else if (method == NCompressionMethod::kZstd)
+          {
+            _compressExtractVersion = NCompressionMethod::kExtractVersion_Zstd;
+            NCompress::NZSTD::CEncoder *encoder = new NCompress::NZSTD::CEncoder();
+            _compressEncoder = encoder;
+          }
           else if (method == NCompressionMethod::kXz)
           {
             _compressExtractVersion = NCompressionMethod::kExtractVersion_Xz;
