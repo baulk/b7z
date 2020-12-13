@@ -469,6 +469,11 @@ static size_t st_decompress(void *arg)
 				}
 			}
 
+			if (out->size == 0 && remaining == 0) {
+				nextToLoad = ctx->inputsize;
+				break;
+			}
+
 			if (nextToLoad == 0)
 				break;
 
