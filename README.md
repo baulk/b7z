@@ -21,7 +21,7 @@ You can install it in two ways:
 2. [Brotli] v.1.0.9 is a generic-purpose lossless compression algorithm that compresses data using a combination of a modern variant of the LZ77 algorithm, Huffman coding and 2nd order context modeling, with a compression ratio comparable to the best currently available general-purpose compression methods. It is similar in speed with deflate but offers more dense compression.
    - Levels: 0..11
 
-3. [LZ4] v1.9.2 is lossless compression algorithm, providing compression speed at 400 MB/s per core (0.16 Bytes/cycle). It features an extremely fast decoder, with speed in multiple GB/s per core (0.71 Bytes/cycle). A high compression derivative, called LZ4_HC, is available, trading customizable CPU time for compression ratio.
+3. [LZ4] v1.9.3 is lossless compression algorithm, providing compression speed at 400 MB/s per core (0.16 Bytes/cycle). It features an extremely fast decoder, with speed in multiple GB/s per core (0.71 Bytes/cycle). A high compression derivative, called LZ4_HC, is available, trading customizable CPU time for compression ratio.
    - Levels: 1..12
 
 4. [LZ5] v1.5 is a modification of LZ4 which gives a better ratio at cost of slower compression and decompression.
@@ -46,7 +46,7 @@ You can install it in two ways:
 
 The output should look like this:
 ```
-7-Zip 19.00 ZS v1.4.5 R2 (x64) : Copyright (c) 1999-2019 Igor Pavlov, 2016-2020 Tino Reichardt : 2020-06-03
+7-Zip 19.00 ZS v1.4.5 R4 (x64) : Copyright (c) 1999-2019 Igor Pavlov, 2016-2020 Tino Reichardt : 2020-12-17
 
 Libs:
  0  c:\Program Files\7-Zip-Zstandard\7z.dll
@@ -267,6 +267,7 @@ For the benchmarks I am using Windows 7 64bit on my Laptop which has the followi
 - [7-Zip Zstandard Homepage](https://mcmilk.de/projects/7-Zip-zstd/)
 - [Request for inclusion](https://sourceforge.net/p/sevenzip/discussion/45797/thread/a7e4f3f3/) into the mainline 7-Zip:
   - result, will currently not included :(
+- [p7zip Homepage](https://github.com/jinfeihan57/p7zip) - for Linux and MacOS with LZ4 and Zstandard
 
 ## Donate
 
@@ -280,11 +281,11 @@ You find this project useful, maybe you consider a donation ;-)
   - [Brotli] Version 1.0.9
   - [Fast LZMA2] Version 1.0.1
   - [Lizard] Version 1.0
-  - [LZ4] Version 1.9.2
+  - [LZ4] Version 1.9.3
   - [LZ5] Version 1.5
   - [Zstandard] Version 1.4.5
 
-/TR 2020-10-16
+/TR 2020-12-17
 
 ## Notes
 
@@ -299,6 +300,5 @@ You find this project useful, maybe you consider a donation ;-)
 [Lizard]:https://github.com/inikep/lizard/
 [ImDisk]:https://sourceforge.net/projects/imdisk-toolkit/
 [Fast LZMA2]:https://github.com/conor42/fast-lzma2
-
 [Codecs.7z]:https://github.com/mcmilk/7-Zip-zstd/releases
 [TotalCmd.7z]:https://github.com/mcmilk/7-Zip-zstd/releases
