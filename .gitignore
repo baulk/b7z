@@ -6,6 +6,8 @@
 *.pch
 *.exp
 *.lib
+/out/
+/.vs/
 /build/
 /build.arm64/
 /build.win32/
