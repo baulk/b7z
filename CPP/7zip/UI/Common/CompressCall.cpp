@@ -236,7 +236,11 @@ HRESULT CompressFiles(
       if (!fo.Method.IsEmpty())
       {
         params += " -m0=";
-        params += fo.Method;
+        if (fo.Level == 0) {
+          params += "copy";
+        } else {
+          params += fo.Method;
+        }
       }
 
       if (fo.Level)
