@@ -118,7 +118,7 @@ Hashers:
 - explorer context menu: _"Add to xy.7z"_ will use all parameters of the last "Add to Archive" compression dialog (this includes: method, level, dictionary, blocksize, threads and paramters input box)
 - squashfs files with LZ4 or Zstandard compression can be handled
 - several history settings aren't stored by default, look [here](https://sourceforge.net/p/sevenzip/discussion/45797/thread/dc2ac53d/?limit=25) for some info about that, you can restore original 7-Zip behavior via `tools->options->settings`
-- these hashed can be calculated: CRC32, CRC64, MD2, MD4, MD5, SHA1, SHA256, SHA384, SHA512, XXH32, XXH64, BLAKE2sp, BLAKE3 (lowercase or uppercase)
+- these hashes can be calculated: CRC32, CRC64, MD2, MD4, MD5, SHA1, SHA256, SHA384, SHA512, XXH32, XXH64, BLAKE2sp, BLAKE3 (lowercase or uppercase)
 
 ```
 7z a archiv.7z -m0=zstd -mx0   Zstandard Fastest Mode, without BCJ preprocessor
@@ -280,7 +280,7 @@ You find this project useful, maybe you consider a donation ;-)
 
 ## Version Information
 
-- 7-Zip ZS Version 19.00
+- 7-Zip ZS Version 21.02
   - [Brotli] Version 1.0.9
   - [Fast LZMA2] Version 1.0.1
   - [Lizard] Version 1.0
@@ -289,7 +289,7 @@ You find this project useful, maybe you consider a donation ;-)
   - [Zstandard] Version 1.4.9
   - [BLAKE3] Version 0.3.7
 
-/TR 2021-04-06
+/TR 2021-05-13
 
 ## Notes
 

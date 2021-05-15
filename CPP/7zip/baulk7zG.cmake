@@ -29,6 +29,7 @@ set(B7ZG_SOURCES_WINDOWS
     ../Windows/Shell.cpp
     ../Windows/Synchronization.cpp
     ../Windows/System.cpp
+    ../Windows/SystemInfo.cpp
     ../Windows/TimeUtils.cpp
     ../Windows/Window.cpp
     ../Windows/Control/ComboBox.cpp

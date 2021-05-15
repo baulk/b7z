@@ -30,7 +30,9 @@ set(B7Z_SOURCES_WINDOWS
     ../Windows/PropVariantConv.cpp
     ../Windows/PropVariantUtils.cpp
     ../Windows/Synchronization.cpp
+    ../Windows/Registry.cpp
     ../Windows/System.cpp
+    ../Windows/SystemInfo.cpp
     ../Windows/TimeUtils.cpp)
 
 set(B7Z_SOURCES_7Z_COMMON
@@ -215,13 +217,16 @@ set(B7Z_SOURCES_C_FILES
     ${BAULK7Z_DIR}/C/MtCoder.c
     ${BAULK7Z_DIR}/C/MtDec.c
     ${BAULK7Z_DIR}/C/Ppmd7.c
+    ${BAULK7Z_DIR}/C/Ppmd7aDec.c
     ${BAULK7Z_DIR}/C/Ppmd7Dec.c
     ${BAULK7Z_DIR}/C/Ppmd7Enc.c
     ${BAULK7Z_DIR}/C/Ppmd8.c
     ${BAULK7Z_DIR}/C/Ppmd8Dec.c
     ${BAULK7Z_DIR}/C/Ppmd8Enc.c
     ${BAULK7Z_DIR}/C/Sha1.c
+    ${BAULK7Z_DIR}/C/Sha1Opt.c
     ${BAULK7Z_DIR}/C/Sha256.c
+    ${BAULK7Z_DIR}/C/Sha256Opt.c
     ${BAULK7Z_DIR}/C/Sort.c
     ${BAULK7Z_DIR}/C/Threads.c
     ${BAULK7Z_DIR}/C/Xz.c
@@ -337,6 +342,7 @@ set(B7ZG_SOURCES_WINDOWS
     ../Windows/Shell.cpp
     ../Windows/Synchronization.cpp
     ../Windows/System.cpp
+    ../Windows/SystemInfo.cpp
     ../Windows/TimeUtils.cpp
     ../Windows/Window.cpp
     ../Windows/Control/ComboBox.cpp
