@@ -289,7 +289,7 @@ You find this project useful, maybe you consider a donation ;-)
   - [Zstandard] Version 1.5.0
   - [BLAKE3] Version 0.3.7
 
-/TR 2021-05-15
+/TR 2021-05-16
 
 ## Notes
 
