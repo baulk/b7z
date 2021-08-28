@@ -97,6 +97,7 @@ set(B7Z_SOURCES_CONSOLE
 set(B7Z_SOURCES_OPT
     ${BAULK7Z_DIR}/C/Aes.c
     ${BAULK7Z_DIR}/C/AesOpt.c
+    ${BAULK7Z_DIR}/C/LzFindOpt.c
     ${BAULK7Z_DIR}/C/7zCrc.c
     ${BAULK7Z_DIR}/C/7zCrcOpt.c
     ${BAULK7Z_DIR}/C/XzCrc64.c
