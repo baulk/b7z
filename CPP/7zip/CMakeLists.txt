@@ -2,6 +2,7 @@
 set(B7Z_SOURCES_BASE_COMMON
     ../Common/CommandLineParser.cpp
     ../Common/CRC.cpp
+    ../Common/DynLimBuf.cpp
     ../Common/IntToString.cpp
     ../Common/ListFileUtils.cpp
     ../Common/NewHandler.cpp

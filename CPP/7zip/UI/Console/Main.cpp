@@ -96,8 +96,7 @@ static const char * const kCopyrightString = "\n7-Zip"
   " : " MY_COPYRIGHT_DATE "\n";
 
 static const char * const kHelpString =
-    "Usage: 7z"
-    PROG_POSTFIX
+    "Usage: baulk7z"
     " <command> [<switches>...] <archive_name> [<file_names>...] [@listfile]\n"
     "\n"
     "<Commands>\n"
