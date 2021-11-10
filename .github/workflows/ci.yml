@@ -33,7 +33,7 @@ jobs:
         with:
           fetch-depth: 1
       - name: compile-baulk7z
-        run: pwsh -NoProfile -NoLogo -ExecutionPolicy unrestricted -File "./script/build.ps1" -Target "${{ matrix.short_target }}"
+        run: pwsh -NoProfile -NoLogo -ExecutionPolicy unrestricted -File "./build.ps1" -Target "${{ matrix.short_target }}"
       - name: Package release
         if: startsWith(github.ref, 'refs/tags/')
         shell: pwsh
