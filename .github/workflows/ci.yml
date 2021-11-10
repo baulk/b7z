@@ -22,38 +22,24 @@ jobs:
         baulk7z_target: [baulk7z-win64, baulk7z-win32, baulk7z-arm64]
         include:
           - baulk7z_target: baulk7z-win64
-            msvc_arch: amd64
-            build_dir: build
+            short_target: win64
           - baulk7z_target: baulk7z-win32
-            msvc_arch: amd64_x86
-            build_dir: build.win32
+            short_target: win32
           - baulk7z_target: baulk7z-arm64
-            msvc_arch: amd64_arm64
-            build_dir: build.arm64
+            short_target: arm64
     steps:
       - uses: lukka/get-cmake@latest
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
       - name: compile-baulk7z
-        shell: cmd
-        env:
-          vc_arch: ${{ matrix.msvc_arch }}
-          workdir: ${{ matrix.build_dir }}
-        run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
-          mkdir %workdir%
-          cd %workdir%
-          set CC=cl
-          set CXX=cl
-          cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
-          ninja all
+        run: pwsh -NoProfile -NoLogo -ExecutionPolicy unrestricted -File "./script/build.ps1" -Target "${{ matrix.short_target }}"
       - name: Package release
         if: startsWith(github.ref, 'refs/tags/')
         shell: pwsh
         # create package and show sha256 hash
         run: |
-          Set-Location ${{ matrix.build_dir }}
+          Set-Location build
           # cleanup zip files
           Remove-Item -Force *.zip
           cpack -G ZIP
@@ -65,7 +51,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           file_glob: true
-          file: ${{ matrix.build_dir}}/Baulk7z-*.zip
+          file: build/Baulk7z-*.zip
           tag: ${{ github.ref }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           overwrite: true
