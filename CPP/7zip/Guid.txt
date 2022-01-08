@@ -173,7 +173,7 @@ Handler GUIDs:
   10 lz5
   11 liz
 
-  C4 Lzip
+  C4 Vhdx
   C5 Base64
   C6 COFF
   C7 Ext

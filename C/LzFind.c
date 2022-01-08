@@ -1,5 +1,5 @@
 /* LzFind.c -- Match finder for LZ algorithms
-2021-09-03 : Igor Pavlov : Public domain */
+2021-11-29 : Igor Pavlov : Public domain */
 
 #include "Precomp.h"
 
@@ -669,7 +669,10 @@ static LZFIND_SATUR_SUB_CODE_FUNC g_LzFind_SaturSub;
 #define DEFAULT_SaturSub LzFind_SaturSub_32
 
 MY_NO_INLINE
-static void LzFind_SaturSub_32(UInt32 subValue, CLzRef *items, const CLzRef *lim)
+static
+void
+MY_FAST_CALL
+LzFind_SaturSub_32(UInt32 subValue, CLzRef *items, const CLzRef *lim)
 {
   do
   {

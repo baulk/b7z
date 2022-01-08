@@ -29,7 +29,7 @@
 #define g0xs (gSize - g1xs)
 #define g1x  (m + g0xs)
 
-#define g3xs 40
+#define g3xs 52
 #define g2xs (gSize - g3xs)
 #define g3x  (m + g2xs)
 

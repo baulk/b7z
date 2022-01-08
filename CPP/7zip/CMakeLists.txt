@@ -127,6 +127,7 @@ set(B7Z_SOURCES_AR
     Archive/SplitHandler.cpp
     Archive/XzHandler.cpp
     Archive/ZstdHandler.cpp
+    Archive/VhdxHandler.cpp
     Archive/HandlerCont.cpp)
 
 file(GLOB B7Z_SOURCES_AR_7Z Archive/7z/*.cpp)

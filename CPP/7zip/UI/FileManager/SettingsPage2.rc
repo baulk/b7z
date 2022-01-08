@@ -1,3 +1,5 @@
+// #define g1xs 60
+
 CAPTION "Settings"
 BEGIN 
   CONTROL  "Show "".."" item",      IDX_SETTINGS_SHOW_DOTS,            MY_CHECKBOX, m,  8, xc, 10
