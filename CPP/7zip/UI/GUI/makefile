@@ -65,6 +65,10 @@ WIN_CTRL_OBJS = \
   $O\Dialog.obj \
   $O\ListView.obj \
 
+WIN_HIJACK_OBJS = \
+  $O\FileBrowser.obj \
+  $O\MessageBox.obj \
+
 7ZIP_COMMON_OBJS = \
   $O\CreateCoder.obj \
   $O\FilePathAutoRename.obj \

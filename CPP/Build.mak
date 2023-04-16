@@ -52,7 +52,7 @@ COMPL_ASM = $(MY_ML) $** $O/$(*B).obj
 COMPL_ASM = $(MY_ML) -c -Fo$O/ $**
 !ENDIF
 
-CFLAGS = $(CFLAGS) -nologo -c -Fo$O/ -W4 -WX -EHsc -Gy -MT -MP -GR- -GL -Gw
+CFLAGS = $(CFLAGS) -std:c++20 -nologo -c -Fo$O/ -W4 -WX -EHsc -Gy -MT -MP -GR- -GL -Gw
 
 !IF "$(CC)" == "clang-cl"
 
@@ -132,7 +132,7 @@ LFLAGS = $(LFLAGS) -DLL -DEF:$(DEF_FILE)
 
 !IFDEF SUB_SYS_VER
 
-MY_SUB_SYS_VER=5.02
+MY_SUB_SYS_VER=6.02
 
 !IFDEF MY_CONSOLE
 LFLAGS = $(LFLAGS) /SUBSYSTEM:console,$(MY_SUB_SYS_VER)

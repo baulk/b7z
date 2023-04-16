@@ -523,7 +523,7 @@ bool CPanel::OnComboBoxCommand(UINT code, LPARAM /* param */, LRESULT &result)
         DWORD attrib = FILE_ATTRIBUTE_DIRECTORY;
         if (info.Find(us2fs(sumPass)))
           attrib = info.Attrib;
-        AddComboBoxItem(name.IsEmpty() ? L"\\" : name, GetRealIconIndex(us2fs(sumPass), attrib), i, false);
+        AddComboBoxItem(name.IsEmpty() ? UString(L"\\") : name, GetRealIconIndex(us2fs(sumPass), attrib), i, false);
         ComboBoxPaths.Add(sumPass);
       }
 

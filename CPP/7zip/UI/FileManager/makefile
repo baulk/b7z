@@ -49,6 +49,10 @@ WIN_CTRL_OBJS = \
   $O\PropertyPage.obj \
   $O\Window2.obj \
 
+WIN_HIJACK_OBJS = \
+  $O\FileBrowser.obj \
+  $O\MessageBox.obj \
+
 7ZIP_COMMON_OBJS = \
   $O\CreateCoder.obj \
   $O\FilePathAutoRename.obj \

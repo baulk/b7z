@@ -311,7 +311,7 @@ Notes:
 */
 
 #ifdef _MSC_VER
-  #define MY_NO_THROW_DECL_ONLY throw()
+  #define MY_NO_THROW_DECL_ONLY //throw()
 #else
   #define MY_NO_THROW_DECL_ONLY
 #endif

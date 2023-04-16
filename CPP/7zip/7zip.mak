@@ -36,6 +36,7 @@ OBJS = \
   $(ZSTDMT_OBJS) \
   $(FASTLZMA2_OBJS) \
   $(ASM_OBJS) \
+  $(WIN_HIJACK_OBJS) \
   $O\resource.res \
 
 !include "../../../Build.mak"
@@ -215,6 +216,10 @@ $(FASTLZMA2_OBJS): ../../../../C/fast-lzma2/$(*B).c
 	$(COMPL_O2) -DNO_XXHASH -DFL2_7ZIP_BUILD
 !ENDIF
 
+!IFDEF WIN_HIJACK_OBJS
+$(WIN_HIJACK_OBJS): ../../Windows/Hijack/$(*B).cpp
+	$(COMPL)
+!ENDIF
 
 !ELSE
 
@@ -223,6 +228,8 @@ $(FASTLZMA2_OBJS): ../../../../C/fast-lzma2/$(*B).c
 {../../../Common}.cpp{$O}.obj::
 	$(COMPLB)
 {../../../Windows}.cpp{$O}.obj::
+	$(COMPLB)
+{../../../Windows/Hijack}.cpp{$O}.obj::
 	$(COMPLB)
 {../../../Windows/Control}.cpp{$O}.obj::
 	$(COMPLB)
